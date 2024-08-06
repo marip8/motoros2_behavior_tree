@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" project_name="Project">
+    <include path="motoros2_bt.xml"/>
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="StartPointQueueMode" editable="true">
+            <input_port name="service_name" default="start_point_queue_mode"/>
+        </Action>
+        <Action ID="StartTrajMode" editable="true">
+          <input_port name="service_name" default="start_traj_mode"/>
+        </Action>
+    </TreeNodesModel>
+</root>

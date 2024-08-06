@@ -27,6 +27,8 @@ install(DIRECTORY include/${PROJECT_NAME} DESTINATION include/)
 install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}-targets DESTINATION lib)
 ament_export_targets(${PROJECT_NAME}-targets HAS_LIBRARY_TARGET)
 
+install(DIRECTORY config DESTINATION share/${PROJECT_NAME}/)
+
 ament_export_dependencies(
   behaviortree_ros2
   motoros2_interfaces)
