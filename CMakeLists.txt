@@ -27,6 +27,9 @@ install(DIRECTORY include/${PROJECT_NAME} DESTINATION include/)
 install(TARGETS ${PROJECT_NAME} EXPORT ${PROJECT_NAME}-targets DESTINATION lib)
 ament_export_targets(${PROJECT_NAME}-targets HAS_LIBRARY_TARGET)
 
+# Install MotoROS2 simulator
+install(PROGRAMS scripts/motoros2_simulator.py DESTINATION lib/${PROJECT_NAME})
+
 install(DIRECTORY config DESTINATION share/${PROJECT_NAME}/)
 
 ament_export_dependencies(
