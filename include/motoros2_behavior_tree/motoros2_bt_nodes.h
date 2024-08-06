@@ -65,4 +65,34 @@ public:
   BT::NodeStatus onResponseReceived(const typename Response::SharedPtr& response) override;
 };
 
+class WriteSingleIONode : public RosServiceNode<motoros2_interfaces::srv::WriteSingleIO>
+{
+public:
+  inline static std::string ADDRESS_KEY = "address";
+  inline static std::string VALUE_KEY = "value";
+  static BT::PortsList providedPorts()
+  {
+    return providedBasicPorts({BT::InputPort(ADDRESS_KEY), BT::InputPort(VALUE_KEY)});
+  }
+  using RosServiceNode<motoros2_interfaces::srv::WriteSingleIO>::RosServiceNode;
+
+  bool setRequest(typename Request::SharedPtr& request) override;
+  BT::NodeStatus onResponseReceived(const typename Response::SharedPtr& response) override;
+};
+
+class ReadSingleIONode : public RosServiceNode<motoros2_interfaces::srv::ReadSingleIO>
+{
+public:
+  inline static std::string ADDRESS_KEY = "address";
+  inline static std::string VALUE_KEY = "value";
+  static BT::PortsList providedPorts()
+  {
+    return providedBasicPorts({BT::InputPort(ADDRESS_KEY), BT::OutputPort(VALUE_KEY)});
+  }
+  using RosServiceNode<motoros2_interfaces::srv::ReadSingleIO>::RosServiceNode;
+
+  bool setRequest(typename Request::SharedPtr& request) override;
+  BT::NodeStatus onResponseReceived(const typename Response::SharedPtr& response) override;
+};
+
 }  // namespace motoros2_behavior_tree

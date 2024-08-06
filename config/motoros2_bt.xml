@@ -2,15 +2,21 @@
 <root BTCPP_format="4">
   <!-- Description of Node Models (used by Groot) -->
   <TreeNodesModel>
-    <Action ID="StartPointQueueMode"
-            editable="true">
-      <input_port name="service_name"
-                  default="start_point_queue_mode"/>
+    <Action ID="StartPointQueueMode" editable="true">
+      <input_port name="service_name" default="start_point_queue_mode"/>
     </Action>
-    <Action ID="StartTrajMode"
-            editable="true">
-      <input_port name="service_name"
-                  default="start_traj_mode"/>
+    <Action ID="StartTrajMode" editable="true">
+      <input_port name="service_name" default="start_traj_mode"/>
+    </Action>
+    <Action ID="ReadSingleIO" editable="true">
+        <input_port name="service_name" default="read_single_io"/>
+        <input_port name="address"/>
+        <output_port name="value"/>
+    </Action>
+    <Action ID="WriteSingleIO" editable="true">
+        <input_port name="service_name" default="write_single_io"/>
+        <input_port name="address"/>
+        <input_port name="value"/>
     </Action>
   </TreeNodesModel>
 </root>
