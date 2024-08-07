@@ -1,10 +1,13 @@
 #pragma once
 
 #include <behaviortree_ros2/bt_service_node.hpp>
+#include <behaviortree_ros2/bt_topic_sub_node.hpp>
 #include <motoros2_interfaces/srv/write_single_io.hpp>
 #include <motoros2_interfaces/srv/read_single_io.hpp>
 #include <motoros2_interfaces/srv/start_traj_mode.hpp>
 #include <motoros2_interfaces/srv/start_point_queue_mode.hpp>
+#include <sensor_msgs/msg/joint_state.hpp>
+#include <trajectory_msgs/msg/joint_trajectory.hpp>
 
 namespace motoros2_behavior_tree
 {
@@ -93,6 +96,22 @@ public:
 
   bool setRequest(typename Request::SharedPtr& request) override;
   BT::NodeStatus onResponseReceived(const typename Response::SharedPtr& response) override;
+};
+
+class AddJointsToTrajectoryNode : public BT::RosTopicSubNode<sensor_msgs::msg::JointState>
+{
+public:
+  inline static std::string TRAJECTORY_INPUT_PORT_KEY = "input";
+  inline static std::string TRAJECTORY_OUTPUT_PORT_KEY = "output";
+  inline static std::string CONTROLLER_JOINT_NAMES_PARAM = "controller_joint_names";
+  inline static BT::PortsList providedPorts()
+  {
+    return providedBasicPorts({ BT::InputPort<trajectory_msgs::msg::JointTrajectory>(TRAJECTORY_INPUT_PORT_KEY),
+                               BT::OutputPort<trajectory_msgs::msg::JointTrajectory>(TRAJECTORY_OUTPUT_PORT_KEY) });
+  }
+  using BT::RosTopicSubNode<sensor_msgs::msg::JointState>::RosTopicSubNode;
+
+  BT::NodeStatus onTick(const typename sensor_msgs::msg::JointState::SharedPtr& last_msg) override;
 };
 
 }  // namespace motoros2_behavior_tree
