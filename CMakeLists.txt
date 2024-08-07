@@ -21,7 +21,7 @@ target_include_directories(
   ${PROJECT_NAME}
   PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
          "$<INSTALL_INTERFACE:include>")
-ament_target_dependencies(${PROJECT_NAME} motoros2_interfaces behaviortree_ros2)
+ament_target_dependencies(${PROJECT_NAME} motoros2_interfaces behaviortree_ros2 sensor_msgs trajectory_msgs)
 target_compile_definitions(${PROJECT_NAME} PRIVATE BT_PLUGIN_EXPORT)
 
 # Install the headers
