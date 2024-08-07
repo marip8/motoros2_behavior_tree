@@ -35,7 +35,7 @@ jobs:
       - name: Build and Tests
         uses: tesseract-robotics/colcon-action@v9
         with:
-          before-script: source /opt/tesseract_ros2/install/setup.bash
+          before-script: source /opt/ros/${{ matrix.distro }}/setup.bash
           ccache-prefix: ${{ matrix.distro }}
           add-ros-ppa: false
           vcs-file: dependencies.repos
