@@ -205,7 +205,10 @@ BTCPP_EXPORT void BT_RegisterRosNodeFromPlugin(BT::BehaviorTreeFactory& factory,
   factory.registerNodeType<motoros2_behavior_tree::WriteSingleIONode>("WriteSingleIO", params);
   factory.registerNodeType<motoros2_behavior_tree::ReadSingleIONode>("ReadSingleIO", params);
 
-  params.nh->declare_parameter<std::vector<std::string>>(
-      motoros2_behavior_tree::AddJointsToTrajectoryNode::CONTROLLER_JOINT_NAMES_PARAM, {});
+  if (!params.nh->has_parameter(motoros2_behavior_tree::AddJointsToTrajectoryNode::CONTROLLER_JOINT_NAMES_PARAM))
+  {
+    params.nh->declare_parameter<std::vector<std::string>>(
+        motoros2_behavior_tree::AddJointsToTrajectoryNode::CONTROLLER_JOINT_NAMES_PARAM, {});
+  }
   factory.registerNodeType<motoros2_behavior_tree::AddJointsToTrajectoryNode>("AddJointsToTrajectory", params);
 }
