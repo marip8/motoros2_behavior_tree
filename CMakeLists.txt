@@ -21,7 +21,8 @@ target_include_directories(
   ${PROJECT_NAME}
   PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
          "$<INSTALL_INTERFACE:include>")
-ament_target_dependencies(${PROJECT_NAME} motoros2_interfaces behaviortree_ros2 sensor_msgs trajectory_msgs)
+ament_target_dependencies(${PROJECT_NAME} motoros2_interfaces behaviortree_ros2
+                          sensor_msgs trajectory_msgs)
 target_compile_definitions(${PROJECT_NAME} PRIVATE BT_PLUGIN_EXPORT)
 
 # Install the headers
@@ -39,9 +40,6 @@ install(PROGRAMS scripts/motoros2_simulator.py DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY config DESTINATION share/${PROJECT_NAME}/)
 
-ament_export_dependencies(
-  behaviortree_ros2
-  motoros2_interfaces
-  sensor_msgs
-  trajectory_msgs)
+ament_export_dependencies(behaviortree_ros2 motoros2_interfaces sensor_msgs
+                          trajectory_msgs)
 ament_package()
