@@ -26,20 +26,20 @@ public:
 
     switch (error)
     {
-    case BT::SERVICE_UNREACHABLE:
-      ss << " is unreachable";
-      break;
-    case BT::SERVICE_TIMEOUT:
-      ss << " timed out";
-      break;
-    case BT::INVALID_REQUEST:
-      ss << " was sent an invalid request";
-      break;
-    case BT::SERVICE_ABORTED:
-      ss << " was aborted";
-      break;
-    default:
-      break;
+      case BT::SERVICE_UNREACHABLE:
+        ss << " is unreachable";
+        break;
+      case BT::SERVICE_TIMEOUT:
+        ss << " timed out";
+        break;
+      case BT::INVALID_REQUEST:
+        ss << " was sent an invalid request";
+        break;
+      case BT::SERVICE_ABORTED:
+        ss << " was aborted";
+        break;
+      default:
+        break;
     }
 
     this->config().blackboard->set(ERROR_MESSAGE_KEY, ss.str());
@@ -75,7 +75,7 @@ public:
   inline static std::string VALUE_KEY = "value";
   static BT::PortsList providedPorts()
   {
-    return providedBasicPorts({BT::InputPort(ADDRESS_KEY), BT::InputPort(VALUE_KEY)});
+    return providedBasicPorts({ BT::InputPort(ADDRESS_KEY), BT::InputPort(VALUE_KEY) });
   }
   using RosServiceNode<motoros2_interfaces::srv::WriteSingleIO>::RosServiceNode;
 
@@ -90,7 +90,7 @@ public:
   inline static std::string VALUE_KEY = "value";
   static BT::PortsList providedPorts()
   {
-    return providedBasicPorts({BT::InputPort(ADDRESS_KEY), BT::OutputPort(VALUE_KEY)});
+    return providedBasicPorts({ BT::InputPort(ADDRESS_KEY), BT::OutputPort(VALUE_KEY) });
   }
   using RosServiceNode<motoros2_interfaces::srv::ReadSingleIO>::RosServiceNode;
 
@@ -107,7 +107,7 @@ public:
   inline static BT::PortsList providedPorts()
   {
     return providedBasicPorts({ BT::InputPort<trajectory_msgs::msg::JointTrajectory>(TRAJECTORY_INPUT_PORT_KEY),
-                               BT::OutputPort<trajectory_msgs::msg::JointTrajectory>(TRAJECTORY_OUTPUT_PORT_KEY) });
+                                BT::OutputPort<trajectory_msgs::msg::JointTrajectory>(TRAJECTORY_OUTPUT_PORT_KEY) });
   }
   using BT::RosTopicSubNode<sensor_msgs::msg::JointState>::RosTopicSubNode;
 
