@@ -13,6 +13,8 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(behaviortree_ros2 REQUIRED)
 find_package(motoros2_interfaces REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(trajectory_msgs REQUIRED)
 
 add_library(${PROJECT_NAME} SHARED src/motoros2_bt_nodes.cpp)
 target_include_directories(
@@ -37,5 +39,9 @@ install(PROGRAMS scripts/motoros2_simulator.py DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY config DESTINATION share/${PROJECT_NAME}/)
 
-ament_export_dependencies(behaviortree_ros2 motoros2_interfaces)
+ament_export_dependencies(
+  behaviortree_ros2
+  motoros2_interfaces
+  sensor_msgs
+  trajectory_msgs)
 ament_package()
