@@ -2,8 +2,8 @@
 Changelog for package motoros2_behavior_tree
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.1.0 (2024-08-15)
+------------------
 * Check if parameters exist before declaring (`#2 <https://github.com/marip8/motoros2_behavior_tree/issues/2>`_)
 * CMake Updates (`#1 <https://github.com/marip8/motoros2_behavior_tree/issues/1>`_)
   * Link against dep libraries
