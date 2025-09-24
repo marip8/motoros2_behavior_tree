@@ -109,7 +109,7 @@ BT::NodeStatus AddJointsToTrajectoryNode::onTick(const typename sensor_msgs::msg
 
     // Get the controller joint names from parameter
     std::vector<std::string> controller_joint_names =
-        get_parameter<std::vector<std::string>>(node_, CONTROLLER_JOINT_NAMES_PARAM);
+        get_parameter<std::vector<std::string>>(node_.lock(), CONTROLLER_JOINT_NAMES_PARAM);
 
     // Find the index of each controller joint in the current trajectory; substitute with -1 if the joint is not found
     std::vector<int> joint_idx_in_trajectory;
@@ -205,9 +205,9 @@ BTCPP_EXPORT void BT_RegisterRosNodeFromPlugin(BT::BehaviorTreeFactory& factory,
   factory.registerNodeType<motoros2_behavior_tree::WriteSingleIONode>("WriteSingleIO", params);
   factory.registerNodeType<motoros2_behavior_tree::ReadSingleIONode>("ReadSingleIO", params);
 
-  if (!params.nh->has_parameter(motoros2_behavior_tree::AddJointsToTrajectoryNode::CONTROLLER_JOINT_NAMES_PARAM))
+  if (!params.nh.lock()->has_parameter(motoros2_behavior_tree::AddJointsToTrajectoryNode::CONTROLLER_JOINT_NAMES_PARAM))
   {
-    params.nh->declare_parameter<std::vector<std::string>>(
+    params.nh.lock()->declare_parameter<std::vector<std::string>>(
         motoros2_behavior_tree::AddJointsToTrajectoryNode::CONTROLLER_JOINT_NAMES_PARAM, {});
   }
   factory.registerNodeType<motoros2_behavior_tree::AddJointsToTrajectoryNode>("AddJointsToTrajectory", params);
