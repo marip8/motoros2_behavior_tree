@@ -10,13 +10,13 @@ on:
 
 jobs:
   cmake_format:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v1
-
+      - uses: actions/checkout@v4
       - name: Run CMake Lang Format Check
         run: |
-          sudo pip3 install cmakelang
+          pip3 install cmakelang
+          git init
           ./.run-cmake-format
           output=$(git diff)
           if [ -n "$output" ]; then exit 1; else exit 0; fi
