@@ -22,7 +22,7 @@ public:
   inline BT::NodeStatus onFailure(BT::ServiceNodeErrorCode error) override
   {
     std::stringstream ss;
-    ss << "Service '" << BT::RosServiceNode<T>::prev_service_name_ << "'";
+    ss << "Service '" << BT::RosServiceNode<T>::service_name_ << "'";
 
     switch (error)
     {
