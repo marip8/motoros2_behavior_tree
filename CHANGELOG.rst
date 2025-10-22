@@ -2,6 +2,12 @@
 Changelog for package motoros2_behavior_tree
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Updated versions of BT libraries and dropped support for Foxy (`#4 <https://github.com/marip8/motoros2_behavior_tree/issues/4>`_)
+* Replaced Rolling CI job with Jazzy (`#3 <https://github.com/marip8/motoros2_behavior_tree/issues/3>`_)
+* Contributors: Michael Ripperger
+
 0.1.0 (2024-08-15)
 ------------------
 * Check if parameters exist before declaring (`#2 <https://github.com/marip8/motoros2_behavior_tree/issues/2>`_)
