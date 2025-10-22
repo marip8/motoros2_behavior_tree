@@ -2,8 +2,8 @@
 Changelog for package motoros2_behavior_tree
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.2.0 (2025-10-22)
+------------------
 * Updated versions of BT libraries and dropped support for Foxy (`#4 <https://github.com/marip8/motoros2_behavior_tree/issues/4>`_)
 * Replaced Rolling CI job with Jazzy (`#3 <https://github.com/marip8/motoros2_behavior_tree/issues/3>`_)
 * Contributors: Michael Ripperger
