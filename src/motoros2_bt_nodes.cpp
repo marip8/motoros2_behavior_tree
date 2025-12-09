@@ -89,6 +89,40 @@ BT::NodeStatus ReadSingleIONode::onResponseReceived(const typename Response::Sha
   return BT::NodeStatus::SUCCESS;
 }
 
+bool WriteMRegisterNode::setRequest(typename Request::SharedPtr& request)
+{
+  request->address = getBTInput<uint32_t>(this, ADDRESS_KEY);
+  request->value = getBTInput<uint32_t>(this, VALUE_KEY);
+  return true;
+}
+
+BT::NodeStatus WriteMRegisterNode::onResponseReceived(const typename Response::SharedPtr& response)
+{
+  if (!response->success)
+  {
+    config().blackboard->set(ERROR_MESSAGE_KEY, response->message);
+    return BT::NodeStatus::FAILURE;
+  }
+  return BT::NodeStatus::SUCCESS;
+}
+
+bool ReadMRegisterNode::setRequest(typename Request::SharedPtr& request)
+{
+  request->address = getBTInput<uint32_t>(this, ADDRESS_KEY);
+  return true;
+}
+
+BT::NodeStatus ReadMRegisterNode::onResponseReceived(const typename Response::SharedPtr& response)
+{
+  if (!response->success)
+  {
+    config().blackboard->set(ERROR_MESSAGE_KEY, response->message);
+    return BT::NodeStatus::FAILURE;
+  }
+  setOutput(VALUE_KEY, response->value);
+  return BT::NodeStatus::SUCCESS;
+}
+
 BT::NodeStatus AddJointsToTrajectoryNode::onTick(const typename sensor_msgs::msg::JointState::SharedPtr& last_msg)
 {
   try
@@ -204,6 +238,8 @@ BTCPP_EXPORT void BT_RegisterRosNodeFromPlugin(BT::BehaviorTreeFactory& factory,
   factory.registerNodeType<motoros2_behavior_tree::StartPointQueueModeNode>("StartPointQueueMode", params);
   factory.registerNodeType<motoros2_behavior_tree::WriteSingleIONode>("WriteSingleIO", params);
   factory.registerNodeType<motoros2_behavior_tree::ReadSingleIONode>("ReadSingleIO", params);
+  factory.registerNodeType<motoros2_behavior_tree::WriteMRegisterNode>("WriteMRegister", params);
+  factory.registerNodeType<motoros2_behavior_tree::ReadMRegisterNode>("ReadMRegister", params);
 
   if (!params.nh.lock()->has_parameter(motoros2_behavior_tree::AddJointsToTrajectoryNode::CONTROLLER_JOINT_NAMES_PARAM))
   {
