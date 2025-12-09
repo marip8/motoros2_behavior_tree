@@ -3,9 +3,11 @@
 #include <behaviortree_ros2/bt_service_node.hpp>
 #include <behaviortree_ros2/bt_topic_sub_node.hpp>
 #include <motoros2_interfaces/srv/write_single_io.hpp>
+#include <motoros2_interfaces/srv/read_m_register.hpp>
 #include <motoros2_interfaces/srv/read_single_io.hpp>
 #include <motoros2_interfaces/srv/start_traj_mode.hpp>
 #include <motoros2_interfaces/srv/start_point_queue_mode.hpp>
+#include <motoros2_interfaces/srv/write_m_register.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <trajectory_msgs/msg/joint_trajectory.hpp>
 
@@ -93,6 +95,36 @@ public:
     return providedBasicPorts({ BT::InputPort(ADDRESS_KEY), BT::OutputPort(VALUE_KEY) });
   }
   using RosServiceNode<motoros2_interfaces::srv::ReadSingleIO>::RosServiceNode;
+
+  bool setRequest(typename Request::SharedPtr& request) override;
+  BT::NodeStatus onResponseReceived(const typename Response::SharedPtr& response) override;
+};
+
+class WriteMRegisterNode : public RosServiceNode<motoros2_interfaces::srv::WriteMRegister>
+{
+public:
+  inline static std::string ADDRESS_KEY = "address";
+  inline static std::string VALUE_KEY = "value";
+  static BT::PortsList providedPorts()
+  {
+    return providedBasicPorts({ BT::InputPort(ADDRESS_KEY), BT::InputPort(VALUE_KEY) });
+  }
+  using RosServiceNode<motoros2_interfaces::srv::WriteMRegister>::RosServiceNode;
+
+  bool setRequest(typename Request::SharedPtr& request) override;
+  BT::NodeStatus onResponseReceived(const typename Response::SharedPtr& response) override;
+};
+
+class ReadMRegisterNode : public RosServiceNode<motoros2_interfaces::srv::ReadMRegister>
+{
+public:
+  inline static std::string ADDRESS_KEY = "address";
+  inline static std::string VALUE_KEY = "value";
+  static BT::PortsList providedPorts()
+  {
+    return providedBasicPorts({ BT::InputPort(ADDRESS_KEY), BT::OutputPort(VALUE_KEY) });
+  }
+  using RosServiceNode<motoros2_interfaces::srv::ReadMRegister>::RosServiceNode;
 
   bool setRequest(typename Request::SharedPtr& request) override;
   BT::NodeStatus onResponseReceived(const typename Response::SharedPtr& response) override;
