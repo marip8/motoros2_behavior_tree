@@ -8,6 +8,7 @@
 #include <motoros2_interfaces/srv/start_traj_mode.hpp>
 #include <motoros2_interfaces/srv/start_point_queue_mode.hpp>
 #include <motoros2_interfaces/srv/write_m_register.hpp>
+#include <motoros2_interfaces/srv/reset_error.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <trajectory_msgs/msg/joint_trajectory.hpp>
 
@@ -125,6 +126,15 @@ public:
     return providedBasicPorts({ BT::InputPort(ADDRESS_KEY), BT::OutputPort(VALUE_KEY) });
   }
   using RosServiceNode<motoros2_interfaces::srv::ReadMRegister>::RosServiceNode;
+
+  bool setRequest(typename Request::SharedPtr& request) override;
+  BT::NodeStatus onResponseReceived(const typename Response::SharedPtr& response) override;
+};
+
+class ResetErrorNode : public RosServiceNode<motoros2_interfaces::srv::ResetError>
+{
+public:
+  using RosServiceNode<motoros2_interfaces::srv::ResetError>::RosServiceNode;
 
   bool setRequest(typename Request::SharedPtr& request) override;
   BT::NodeStatus onResponseReceived(const typename Response::SharedPtr& response) override;

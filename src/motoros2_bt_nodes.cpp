@@ -123,6 +123,24 @@ BT::NodeStatus ReadMRegisterNode::onResponseReceived(const typename Response::Sh
   return BT::NodeStatus::SUCCESS;
 }
 
+bool ResetErrorNode::setRequest(typename Request::SharedPtr& /*request*/)
+{
+  return true;
+}
+
+BT::NodeStatus ResetErrorNode::onResponseReceived(const typename Response::SharedPtr& response)
+{
+  switch (response->result_code.value)
+  {
+    case motoros2_interfaces::msg::MotionReadyEnum::READY:
+      return BT::NodeStatus::SUCCESS;
+    default:
+      config().blackboard->set(ERROR_MESSAGE_KEY, response->message);
+      break;
+  }
+  return BT::NodeStatus::FAILURE;
+}
+
 BT::NodeStatus AddJointsToTrajectoryNode::onTick(const typename sensor_msgs::msg::JointState::SharedPtr& last_msg)
 {
   try
@@ -240,6 +258,7 @@ BTCPP_EXPORT void BT_RegisterRosNodeFromPlugin(BT::BehaviorTreeFactory& factory,
   factory.registerNodeType<motoros2_behavior_tree::ReadSingleIONode>("ReadSingleIO", params);
   factory.registerNodeType<motoros2_behavior_tree::WriteMRegisterNode>("WriteMRegister", params);
   factory.registerNodeType<motoros2_behavior_tree::ReadMRegisterNode>("ReadMRegister", params);
+  factory.registerNodeType<motoros2_behavior_tree::ResetErrorNode>("ResetError", params);
 
   if (!params.nh.lock()->has_parameter(motoros2_behavior_tree::AddJointsToTrajectoryNode::CONTROLLER_JOINT_NAMES_PARAM))
   {
